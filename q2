@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>4-Digit Number Validator</title>
+  <style>
+    body{
+      font-family: Arial, sans-serif;
+      background:#f3f4f6;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      height:100vh;
+      margin:0;
+    }
+    .box{
+      background:white;
+      padding:30px;
+      border-radius:12px;
+      box-shadow:0 4px 15px rgba(0,0,0,0.1);
+      text-align:center;
+      width:300px;
+    }
+    h2{margin-top:0;color:#374151}
+    input[type="text"]{
+      width:100%;
+      padding:10px;
+      margin:10px 0;
+      border:1px solid #ccc;
+      border-radius:8px;
+      font-size:16px;
+      text-align:center;
+    }
+    button{
+      padding:10px 20px;
+      font-size:16px;
+      background:#2563eb;
+      color:white;
+      border:none;
+      border-radius:8px;
+      cursor:pointer;
+      transition:0.2s;
+    }
+    button:hover{background:#1d4ed8}
+    .msg{margin-top:15px;font-weight:bold}
+    .error{color:#dc2626}
+    .success{color:#16a34a}
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>Enter 4-Digit Number</h2>
+    <input type="text" id="numInput" maxlength="4" placeholder="e.g. 1234">
+    <button onclick="validate()">Validate</button>
+    <div id="message" class="msg"></div>
+  </div>
+
+  <script>
+    function validate(){
+      const input = document.getElementById("numInput").value.trim();
+      const msg = document.getElementById("message");
+
+      // Check: must be exactly 4 digits
+      if(!/^\d{4}$/.test(input)){
+        msg.textContent = "Please enter exactly 4 digits.";
+        msg.className = "msg error";
+        return;
+      }
+
+      // Check: first digit not zero
+      if(input[0] === "0"){
+        msg.textContent = "First digit cannot be zero.";
+        msg.className = "msg error";
+        return;
+      }
+
+      // Check: ascending order
+      let ascending = true;
+      for(let i=0; i<3; i++){
+        if(Number(input[i]) >= Number(input[i+1])){
+          ascending = false;
+          break;
+        }
+      }
+
+      if(!ascending){
+        msg.textContent = "Digits must be in ascending order.";
+        msg.className = "msg error";
+      } else {
+        msg.textContent = "Valid number ✔";
+        msg.className = "msg success";
+      }
+    }
+  </script>
+</body>
+</html>
