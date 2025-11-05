@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Design Portfolio Gallery</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f3f4f6;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .gallery-box {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+      text-align: center;
+    }
+    h2 {
+      margin-top: 0;
+      color: #374151;
+    }
+    .gallery img {
+      width: 150px;
+      height: 100px;
+      object-fit: cover;
+      margin: 8px;
+      border-radius: 10px;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: border 0.3s;
+    }
+    .gallery img:hover {
+      border: 2px solid #2563eb;
+    }
+    #selectedImage {
+      margin-top: 20px;
+      display: none;
+      border-radius: 12px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    button:hover {
+      background: #1d4ed8;
+    }
+  </style>
+</head>
+<body>
+  <div class="gallery-box">
+    <h2>My Design Portfolio</h2>
+    <div class="gallery">
+      <img src="https://picsum.photos/id/1015/300/200" alt="Design 1">
+      <img src="https://picsum.photos/id/1016/300/200" alt="Design 2">
+      <img src="https://picsum.photos/id/1019/300/200" alt="Design 3">
+    </div>
+    <img id="selectedImage" src="" alt="Selected Work">
+    <br>
+    <button id="animateBtn">Highlight Image</button>
+  </div>
+
+  <script>
+    $(document).ready(function(){
+      let selected = $("#selectedImage");
+
+      // Click gallery image -> load into big preview
+      $(".gallery img").click(function(){
+        let src = $(this).attr("src");
+        selected.stop(true,true).css({
+          width: "150px",
+          height: "100px",
+          opacity: 0,
+          display: "block"
+        }).attr("src", src);
+      });
+
+      // Animate button -> fade in + grow
+      $("#animateBtn").click(function(){
+        if(selected.attr("src")){
+          selected.animate({
+            width: "300px",
+            height: "200px",
+            opacity: 1
+          }, 1000); // 1 second smooth animation
+        } else {
+          alert("Please select an image from the gallery first!");
+        }
+      });
+    });
+  </script>
+</body>
+</html>
